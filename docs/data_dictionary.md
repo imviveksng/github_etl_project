@@ -33,3 +33,40 @@ This section details the transformation logic applied using the `Pandas` process
 * **Logic:** The raw API payload occasionally passes a null value (`None`) if the repository developer leaves the description blank. To prevent downstream BI indexing issues or empty dashboard cells, missing entries are filled.
 * **Python Expression:** ```python
   df['description'] = df['description'].fillna("No description provided")
+2. Date Normalization (created_date)
+Logic: The API outputs an ISO 8601 string combined timestamp (e.g., 2026-04-05T14:22:01Z). To optimize query filtering and support clean chronological relationships in BI data modeling, this is stripped down to a basic YYYY-MM-DD standard date entity.
+
+Python Expression:
+
+Python
+df['created_date'] = pd.to_datetime(df['created_at_raw']).dt.date
+3. Categorical Feature Engineering (popularity_tier)
+Logic: A segmentation rule designed to separate viral, high-growth, and baseline trending repositories based on cumulative developer stars. This classification reduces visual data clutter in dashboard reporting slabs.
+
+Conditional Rules Matrix:
+
+Tier 1 (Viral): Stars > 10,000
+
+Tier 2 (High Growth): Stars > 1,000 and <= 10,000
+
+Tier 3 (Trending): Stars <= 1,000
+
+Python Implementation:
+
+Python
+def categorize_popularity(stars):
+    if stars > 10000: 
+        return 'Tier 1 (Viral)'
+    elif stars > 1000: 
+        return 'Tier 2 (High Growth)'
+    else: 
+        return 'Tier 3 (Trending)'
+
+df['popularity_tier'] = df['stars'].apply(categorize_popularity)
+4. System Operational Metadata (extracted_at_dt)
+Logic: Generates an extraction record timestamp captured from the system runtime clock (YYYY-MM-DD HH:MM:SS). This column enables historic delta comparisons and data tracking over time if the staging pattern changes from data replacement to chronological append sequences.
+
+Python Expression:
+
+Python
+df['extracted_at_dt'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
