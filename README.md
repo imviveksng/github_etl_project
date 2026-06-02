@@ -39,13 +39,6 @@ Engagement Insights: Custom DAX measures tracking the Fork-to-Star Engagement Ra
 
 Velocity: Distribution of project creation velocity across engineered popularity tiers (Tiers 1, 2, and 3).
 
-
----
-
-## 🔄 Step 3: Update Your Main Profile README
-
-To feature this on your main GitHub profile layout (`imviveksng`), copy and paste this new project block directly underneath your **Featured Projects** section:
-
 ```markdown
 ### ⚙️ [Automated GitHub Metrics ETL Pipeline](https://github.com/imviveksng/github-metrics-etl-pipeline)
 End-to-end Python pipeline extracting live open-source metrics using the GitHub REST API.  
