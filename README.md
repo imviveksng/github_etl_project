@@ -170,7 +170,7 @@ The dashboard tracks engineering metrics across **three analytical perspectives*
 
 **Vivek**
 - GitHub: [@imviveksng](https://github.com/imviveksng)
-- Project: [github-metrics-etl-pipeline](https://github.com/imviveksng/github-metrics-etl-pipeline)
+- Project: [github_etl_project](https://github.com/imviveksng/github_etl_project)
 
 ---
 
